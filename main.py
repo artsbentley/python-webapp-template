@@ -8,10 +8,12 @@ from loguru import logger
 def main():
     conn = sqlite3.connect("app.db")
     atexit.register(lambda: conn.close())
+
     db = database.Database(conn, logger)
 
     user = model.User(name="Arno", age=28, email="arnoarts@hotmail.com")
     db.insert_user(user)
+
     users = db.get_all_users()
     for user in users:
         print(user.age)
