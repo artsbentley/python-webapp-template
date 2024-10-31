@@ -1,4 +1,5 @@
 import model
+from typing import List
 
 
 class Database:
@@ -41,6 +42,7 @@ class Database:
 
     def insert_user(self, user: model.User):
         cursor = self.conn.cursor()
+        assert isinstance(user, model.User), "input must be of type 'User'"
         cursor.execute(
             "INSERT INTO users (name, age, email) VALUES (?, ?, ?)",
             (user.name, user.age, user.email),
@@ -48,10 +50,14 @@ class Database:
         self.conn.commit()
         self.logger.info(f"Inserted user: {user}")
 
-    def get_all_users(self):
+    def get_all_users(self) -> List[model.User]:
         cursor = self.conn.cursor()
         cursor.row_factory = self.model_factory(model.User)
         cursor.execute("SELECT * FROM users")
         rows = cursor.fetchall()
+
+        assert isinstance(
+            rows[1], model.User
+        ), "the function must return a list of Users"
         self.logger.info("Fetched all users")
         return rows

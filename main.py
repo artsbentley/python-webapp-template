@@ -16,7 +16,7 @@ def main():
 
     users = db.get_all_users()
     for user in users:
-        print(user.age)
+        print(user.id, user.age)
 
 
 if __name__ == "__main__":
