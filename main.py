@@ -1,24 +1,16 @@
+# main.py
 import sqlite3
 import atexit
 import model
 import database
-# from loguru import logger
-
-from jinja2 import Template
 from jinja2_fragments.fastapi import Jinja2Blocks
-
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse, FileResponse
 
-# from fastapi.templating import Jinja2Templates
-
-
 app = FastAPI()
 templates = Jinja2Blocks(directory="templates")
-
 conn = sqlite3.connect("app.db")
 atexit.register(lambda: conn.close())
-
 db = database.Database(conn)
 
 
@@ -29,7 +21,10 @@ async def get_favicon():
 
 @app.get("/")
 async def root(request: Request):
-    context = {"users": db.get_all_users()}
+    context = {}
+    context["users"] = db.get_all_users()
+    context["success"] = True
+    context["message"] = "kankaaaa"
     return templates.TemplateResponse(
         "index.html", {"request": request, "context": context}
     )
@@ -54,12 +49,9 @@ async def create_user(
         context["success"] = False
         context["users"] = db.get_all_users()
 
+    # Return both message and table blocks
     return templates.TemplateResponse(
         "index.html",
         {"request": request, "context": context},
-        block_name="table",
+        block_names=["message", "table"],
     )
-
-
-# if __name__ == "__main__":
-#     main()
