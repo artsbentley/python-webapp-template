@@ -18,19 +18,6 @@ class Database:
 
         return factory
 
-    # @contextmanager
-    # def get_cursor(self):
-    #     cursor = self.conn.cursor()
-    #     try:
-    #         yield cursor
-    #         self.conn.commit()
-    #     except Exception as e:
-    #         self.conn.rollback()
-    #         self.logger.error(f"Database operation failed: {str(e)}")
-    #         raise DatabaseError(f"Database operation failed: {str(e)}") from e
-    #     finally:
-    #         cursor.close()
-
     def create_tables(self):
         with self.conn:
             cursor = self.conn.cursor()
