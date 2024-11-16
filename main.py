@@ -35,7 +35,7 @@ async def root(request: Request):
     )
 
 
-@app.post("/user")
+@app.post("/create_user")
 async def create_user(
     request: Request,
     name: str = Form(...),
@@ -47,9 +47,11 @@ async def create_user(
         user = model.User(name=name, age=age, email=email)
         db.insert_user(user)
         context["users"] = db.get_all_users()
-        context["success_message"] = "Added user successfully"
+        context["success"] = True
+        context["message"] = "Added user successfully"
     except Exception as e:
-        context["error_message"] = str(e)
+        context["message"] = str(e)
+        context["success"] = False
         context["users"] = db.get_all_users()
 
     return templates.TemplateResponse(
