@@ -14,6 +14,8 @@
 			<h1 class="text-3xl font-bold mb-8">User Management</h1>
 			<div class="bg-base-100 rounded-lg shadow p-6 mb-8">
 				<h2 class="text-xl font-semibold mb-4">Add New User</h2>
+
+				<!-- TOAST -->
 				{% block message %}
 					<div id="message-container" class="toast toast-top toast-end">
 						{% if context.success is defined %}
@@ -25,6 +27,8 @@
 						{% endif %}
 					</div>
 				{% endblock %}
+
+				<!-- FORM -->
 				<form
 					id="user-form"
 					hx-post="/create_user"
