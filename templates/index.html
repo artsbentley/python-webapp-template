@@ -1,14 +1,6 @@
-<!doctype html>
-<html lang="en" data-theme="light">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>User Management</title>
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<script src="https://unpkg.com/htmx.org@1.9.10"></script>
-		<link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.23/dist/full.min.css" rel="stylesheet" type="text/css" />
-		<script src="https://cdn.tailwindcss.com?plugins=typography"></script>
-	</head>
+{% extends "base.html" %}
+{% block content %}
+	<title>User Management</title>
 	<body class="bg-base-200 min-h-screen p-8">
 		<div class="max-w-4xl mx-auto">
 			<h1 class="text-3xl font-bold mb-8">User Management</h1>
@@ -63,8 +55,8 @@
 					<button type="submit" class="btn btn-primary w-full">Add User</button>
 				</form>
 			</div>
-			<div id="users-table" class="bg-base-100 rounded-lg shadow overflow-hidden">
-				{% block table %}
+			{% block table %}
+				<div id="users-table" class="bg-base-100 rounded-lg shadow overflow-hidden">
 					<table class="table table-auto w-full">
 						<thead>
 							<tr>
@@ -83,8 +75,8 @@
 							{% endfor %}
 						</tbody>
 					</table>
-				{% endblock %}
-			</div>
+				</div>
+			{% endblock %}
 		</div>
 		<script>
 			// Unified function to hide alerts
@@ -102,4 +94,4 @@
 			}
 		</script>
 	</body>
-</html>
+{% endblock %}
