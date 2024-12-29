@@ -8,5 +8,33 @@
 		<link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.23/dist/full.min.css" rel="stylesheet" type="text/css" />
 		<script src="https://cdn.tailwindcss.com?plugins=typography"></script>
 	</head>
-	<main>{% block content %}{% endblock %}</main>
+	<main>
+		{% block content %}
+			<!-- TOAST -->
+			{% block message %}
+				<div id="message-container" class="toast toast-top toast-end">
+					{% if context.success is defined %}
+						{% if context.success %}
+							<div class="alert alert-success mb-4">{{ context.message }}</div>
+						{% else %}
+							<div class="alert alert-warning mb-4">{{ context.message }}</div>
+						{% endif %}
+					{% endif %}
+				</div>
+			{% endblock %}
+		{% endblock %}
+	</main>
+	<script>
+		document.body.addEventListener("htmx:responseError", (event) => {
+			const errorContainer = document.querySelector("#message-container");
+			if (errorContainer) {
+				errorContainer.innerHTML = `
+                <div class="alert alert-error">
+                    <strong>Error:</strong> ${event.detail.xhr.responseText || "An unexpected error occurred."}
+                </div>
+            `;
+				hideAlerts();
+			}
+		});
+	</script>
 </html>

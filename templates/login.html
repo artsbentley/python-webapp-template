@@ -1,0 +1,43 @@
+{% extends "base.jinja2" %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+
+<p style="color: red;">
+    {{login_error}}
+</p>
+
+<form action="/login" method="POST" >
+    <input name="username" placeholder="username">
+    <input type="password" name="password" placeholder="password">
+    <button type="submit">Login</button> 
+</form>
+
+<p>
+    Not registered ? Create account below
+</p>
+
+<p style="color: green;">
+    {{message}}
+</p>
+
+<p style="color: red;">
+    {{creation_error}}
+</p>
+
+<form action="/signup" method="POST">
+    <input name="username" placeholder="username" id="username">
+    <div id = "long_username"></div>
+    <input type="password" name="password" id="password" placeholder="password">
+    <input type="password" name="password_again" id="password_again" placeholder="password again">
+    <div id = "passwords_message"></div>
+    <button type="submit" >Create account</button>
+</form>
+
+<a href="/menu">Leel</a>
+
+<script language = "JavaScript" src = "{{ url_for('javascript', path='login.js')}}"></script>
+
+{% endblock %}

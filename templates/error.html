@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="container mx-auto px-4 py-8">
+		<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+			<strong class="font-bold">Error {{ status_code }}:</strong>
+			<span class="block sm:inline">{{ detail }}</span>
+		</div>
+		<div class="mt-4">
+			<a href="/" class="text-blue-500 hover:text-blue-700">Return to homepage</a>
+		</div>
+	</div>
+{% endblock %}
